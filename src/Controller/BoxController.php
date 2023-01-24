@@ -8,6 +8,7 @@ use App\Foundation\Http\ApiController;
 use App\Siklid\Application\Box\CreateBox;
 use App\Siklid\Application\Box\DeleteBox;
 use App\Siklid\Application\Box\ListBoxes;
+use App\Siklid\Application\Box\UpdateBox;
 use App\Siklid\Document\Box;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,6 +21,14 @@ class BoxController extends ApiController
     {
         return $this->created($action->execute(), ['box:create']);
     }
+
+    #[Route('/boxes/{id}', name: 'box_update', methods: ['PATCH', 'PUT'])]
+    #[IsGranted('update', subject: 'box')]
+    public function update(UpdateBox $action, Box $box): Response
+    {
+        return $this->ok($action->setBox($box)->execute(), ['box:update']);
+    }
+
 
     #[Route('/boxes/{id}', name: 'box_delete', methods: ['DELETE'])]
     #[IsGranted('delete', subject: 'box')]
