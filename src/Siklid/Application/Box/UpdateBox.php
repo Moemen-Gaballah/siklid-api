@@ -25,25 +25,35 @@ final class UpdateBox extends AbstractAction
         UpdateBoxRequest $request,
         DocumentManager $dm,
         ValidatorInterface $validator,
-        UserResolverInterface $userResolver
+        UserResolverInterface $userResolver,
+        ?BoxInterface $box = null
     ) {
         $this->request = $request;
         $this->dm = $dm;
         $this->validator = $validator;
         $this->userResolver = $userResolver;
+        $this->box = $box;
     }
 
     public function execute(): BoxInterface
     {
-        $box = $this->fill(Box::class, $this->request->formInput());
-        $box->setUser($this->userResolver->getUser());
-        $box->setHashtags(extract_hashtags((string)$box->getDescription()));
+        $this->box->setUser($this->userResolver->getUser());
+        $this->box->setName($this->request->formInput()['name']);
+        $this->box->setDescription($this->request->formInput()['description']);
+        $this->box->setHashtags(extract_hashtags((string)$this->box->getDescription()));
 
-        $this->validator->validate($box);
+        $this->validator->validate($this->box);
 
-        $this->dm->persist($box);
+        $this->dm->persist($this->box);
         $this->dm->flush();
 
-        return $box;
+        return $this->box;
+    }
+
+    public function setBox(BoxInterface $box): self
+    {
+        $this->box = $box;
+
+        return $this;
     }
 }

@@ -7,6 +7,7 @@ namespace App\Siklid\Application\Box;
 use App\Foundation\Action\AbstractAction;
 use App\Foundation\Validation\ValidatorInterface;
 use App\Siklid\Application\Box\Request\CreateBoxRequest;
+use App\Siklid\Application\Box\Request\UpdateBoxRequest;
 use App\Siklid\Application\Contract\Entity\BoxInterface;
 use App\Siklid\Document\Box;
 use App\Siklid\Security\UserResolverInterface;
@@ -14,7 +15,7 @@ use Doctrine\ODM\MongoDB\DocumentManager;
 
 final class CreateBox extends AbstractAction
 {
-    private CreateBoxRequest $request;
+    private UpdateBoxRequest $request;
 
     private DocumentManager $dm;
 
@@ -22,7 +23,7 @@ final class CreateBox extends AbstractAction
     private UserResolverInterface $userResolver;
 
     public function __construct(
-        CreateBoxRequest $request,
+        UpdateBoxRequest $request,
         DocumentManager $dm,
         ValidatorInterface $validator,
         UserResolverInterface $userResolver

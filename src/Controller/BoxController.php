@@ -12,6 +12,7 @@ use App\Siklid\Application\Box\UpdateBox;
 use App\Siklid\Document\Box;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Response;
+use App\Foundation\Http\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class BoxController extends ApiController
