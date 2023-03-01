@@ -12,7 +12,7 @@ final class UpdateBoxRequest extends Request
     protected function constraints(): array
     {
         return [
-            'name' => [new Assert\NotBlank()],
+//            'name' => [new Assert\NotBlank()],
         ];
     }
 }

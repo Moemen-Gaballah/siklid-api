@@ -38,7 +38,12 @@ final class UpdateBox extends AbstractAction
     public function execute(): BoxInterface
     {
         $this->box->setUser($this->userResolver->getUser());
+
+        if(isset($this->request->formInput()['name']))
         $this->box->setName($this->request->formInput()['name']);
+
+
+        if(isset($this->request->formInput()['description']))
         $this->box->setDescription($this->request->formInput()['description']);
         $this->box->setHashtags(extract_hashtags((string)$this->box->getDescription()));
 
